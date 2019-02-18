@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.lang.Math;
+import java.lang.String;
 
 /* # Basic Payslip Challenge
 
@@ -88,7 +88,7 @@ public class Main {
         // ask user to enter annual salary
         // check annual salary is a positive integer
         System.out.print("Please enter your annual salary: ");
-        int annualSalary;
+        int annualSalary = 0;
         annualSalary = Integer.parseInt(userInput.nextLine());
 
         // ask user to enter super rate
@@ -105,22 +105,22 @@ public class Main {
         String endDate = userInput.nextLine();
 
         // generate payslip
-        System.out.print(createPayslip(String firstName, String lastName, String startDate, String endDate, int grossIncome, int incomeTax, int netIncome, int superContribution));
+        System.out.print(createPayslip(firstName, lastName, startDate, endDate, annualSalary, superRate));
 
     }
 
     // CALCULATION METHODS
 
         // method to generate gross income (annual salary / 12)
-    private static int grossIncome(int annualSalary){
+    private static int grossIncomeMethod(int annualSalary){
         return annualSalary / 12;
     }
 
         // method to generate income tax (round up)
-    private static double incomeTax(int annualSalary){
+    private static double incomeTaxMethod(int annualSalary){
 
         double tax;
-        
+
         if(annualSalary <= 18200 ){
             tax = 0;
         } else if(annualSalary <= 37000){
@@ -137,42 +137,40 @@ public class Main {
     }
 
         // method to generate net income (gross income - income tax)
-    private static int netIncome(int grossIncome, int incomeTax){
+    private static double netIncomeMethod(int grossIncome, double incomeTax){
         return grossIncome - incomeTax;
     }
 
         // method to generate super (gross income x super rate -> round down)
-    private static int superContribution(int grossIncome, int superRate){
-        return grossIncome * (superRate / 100);
+    private static double superContributionMethod(int grossIncome, int superRate){
+        return grossIncome * (superRate / 100.0f);
     }
 
     // PAYSLIP GENERATOR
-    private static String createPayslip(String firstName, String lastName, String startDate, String endDate, int grossIncome, int incomeTax, int netIncome, int superContribution) throws InterruptedException {
-
-        // payslip generating message
-        System.out.println("Your payslip is being generated...");
-        Thread.sleep(1000);
-
-        // print name
-        System.out.println("Name: " + firstName + " " + lastName);
-
-        // print pay period
-        System.out.println("Pay Period: " + startDate + " - " + endDate);
+    private static String createPayslip(String firstName, String lastName, String startDate, String endDate, int annualSalary, int superRate){
 
         // print gross income
-        System.out.println("Gross Income: " + grossIncome);
+        int grossIncome = grossIncomeMethod(annualSalary);
 
         // print income tax
-        System.out.println("Income Tax: " + incomeTax);
+        double incomeTax = incomeTaxMethod(annualSalary);
 
         // print net income
-        System.out.println("Net Income: " + netIncome);
+        double netIncome = netIncomeMethod(grossIncome, incomeTax);
 
         // print super contribution
-        System.out.println("Super: " + superContribution);
+        double superContribution = superContributionMethod(grossIncome, superRate);
 
-        // thank you message
-        System.out.println("Thank you for using MYOB!");
+        String generatePayslip = "\nYour payslip is being generated...\n"
+                                + "\nName: " + firstName + " " + lastName + "\n"
+                                + "Pay Period: " + startDate + " - " + endDate + "\n"
+                                + "Gross Income: " + grossIncome + "\n"
+                                + "Income Tax: " + incomeTax + "\n"
+                                + "Net Income: " + netIncome + "\n"
+                                + "Super: " + superContribution + "\n"
+                                + "\nThank you for using MYOB!";
+
+        return generatePayslip;
     }
 
 }
