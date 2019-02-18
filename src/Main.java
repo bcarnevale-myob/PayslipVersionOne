@@ -71,31 +71,6 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
-        // CALCULATION METHODS
-
-        // method to generate pay period (one month)
-
-        // method to generate gross income (annual salary / 12)
-
-        // method to generate income tax (round up)
-
-        // method to generate net income (gross income - income tax)
-
-        // method to generate super (gross income x super rate -> round down)
-
-        // PAYSLIP GENERATOR
-
-        // payslip generating message
-        // print name
-        // print pay period
-        // print gross income
-        // print income tax
-        // print net income
-        // print super
-        // thank you message
-
-        // OUTPUT
-
         // welcome message
         System.out.print("Welcome to the payslip generator!\n");
         Thread.sleep(1000);
@@ -103,33 +78,101 @@ public class Main {
         Scanner userInput = new Scanner(System.in);
 
         // ask user to enter first name
-        System.out.print("Please enter your first name:");
+        System.out.print("Please enter your first name: ");
         String firstName = userInput.nextLine();
 
         // ask user to enter last name
-        System.out.print("Please enter your last name:");
+        System.out.print("Please enter your last name: ");
         String lastName = userInput.nextLine();
 
         // ask user to enter annual salary
         // check annual salary is a positive integer
-        System.out.print("Please enter your annual salary:");
+        System.out.print("Please enter your annual salary: ");
         int annualSalary;
         annualSalary = Integer.parseInt(userInput.nextLine());
 
         // ask user to enter super rate
         // check super rate is an integer and within 0 - 50
-        System.out.print("Please enter your super annuation rate:");
+        System.out.print("Please enter your super annuation rate (out of 100%): ");
         int superRate = Integer.parseInt(userInput.nextLine());
 
         // ask user to enter pay start date
-        System.out.print("Please enter your payment start date(dd/mm/yyyy):");
+        System.out.print("Please enter your payment start date(dd/mm/yyyy): ");
         String startDate = userInput.nextLine();
 
         // ask user to enter pay end date
-        System.out.print("Please enter your payment end date(dd/mm/yyyy):");
+        System.out.print("Please enter your payment end date(dd/mm/yyyy): ");
         String endDate = userInput.nextLine();
 
         // generate payslip
+        System.out.print(createPayslip(String firstName, String lastName, String startDate, String endDate, int grossIncome, int incomeTax, int netIncome, int superContribution));
 
     }
+
+    // CALCULATION METHODS
+
+        // method to generate gross income (annual salary / 12)
+    private static int grossIncome(int annualSalary){
+        return annualSalary / 12;
+    }
+
+        // method to generate income tax (round up)
+    private static double incomeTax(int annualSalary){
+
+        double tax;
+        
+        if(annualSalary <= 18200 ){
+            tax = 0;
+        } else if(annualSalary <= 37000){
+            tax = (annualSalary - 18000) * 0.19;
+        } else if(annualSalary <= 87000){
+            tax = 3572 + ((annualSalary - 37000) * 0.325);
+        } else if(annualSalary <= 180000){
+            tax = 19822 + ((annualSalary - 87000) * 0.37);
+        } else {
+            tax = 54232 + ((annualSalary - 180000) * 0.45);
+        }
+
+        return tax / 12;
+    }
+
+        // method to generate net income (gross income - income tax)
+    private static int netIncome(int grossIncome, int incomeTax){
+        return grossIncome - incomeTax;
+    }
+
+        // method to generate super (gross income x super rate -> round down)
+    private static int superContribution(int grossIncome, int superRate){
+        return grossIncome * (superRate / 100);
+    }
+
+    // PAYSLIP GENERATOR
+    private static String createPayslip(String firstName, String lastName, String startDate, String endDate, int grossIncome, int incomeTax, int netIncome, int superContribution) throws InterruptedException {
+
+        // payslip generating message
+        System.out.println("Your payslip is being generated...");
+        Thread.sleep(1000);
+
+        // print name
+        System.out.println("Name: " + firstName + " " + lastName);
+
+        // print pay period
+        System.out.println("Pay Period: " + startDate + " - " + endDate);
+
+        // print gross income
+        System.out.println("Gross Income: " + grossIncome);
+
+        // print income tax
+        System.out.println("Income Tax: " + incomeTax);
+
+        // print net income
+        System.out.println("Net Income: " + netIncome);
+
+        // print super contribution
+        System.out.println("Super: " + superContribution);
+
+        // thank you message
+        System.out.println("Thank you for using MYOB!");
+    }
+
 }
