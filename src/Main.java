@@ -112,8 +112,11 @@ public class Main {
             System.out.print("Please enter your superannuation rate (out of 100): ");
             superRate = Integer.parseInt(userInput.nextLine());
             if (superRate > 100 || superRate < 0) {
-                throw new Exception("Super must be between 0 and 100, received: " + superRate);
+                throw new Exception("Superannuation rate must be between 0 and 100, received: " + superRate);
             }
+        } catch(NumberFormatException e) {
+            System.out.print("Superannuation rate must be an integer, received: " + superRate);
+            System.exit(2);
         } catch(Exception e) {
             System.out.print(e.getMessage());
             System.exit(4);
