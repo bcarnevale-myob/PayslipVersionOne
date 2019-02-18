@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.lang.String;
 import java.lang.Math;
+import java.lang.Object;
+import java.awt.Color;
 
 /* # Basic Payslip Challenge
 
@@ -71,7 +73,6 @@ import java.lang.Math;
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
-
         // welcome message
         System.out.print("Welcome to the payslip generator!\n");
         Thread.sleep(1000);
@@ -96,10 +97,10 @@ public class Main {
             if (annualSalary <= 0) {
                 throw new Exception("Annual salary must be positive, received: " + annualSalary);
             }
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.print("Annual Salary must be an integer, received: " + annualSalary);
             System.exit(2);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.print(e.getMessage());
             System.exit(3);
         }
@@ -114,10 +115,10 @@ public class Main {
             if (superRate > 100 || superRate < 0) {
                 throw new Exception("Superannuation rate must be between 0 and 100, received: " + superRate);
             }
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.print("Superannuation rate must be an integer, received: " + superRate);
             System.exit(2);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.print(e.getMessage());
             System.exit(4);
         }
@@ -131,29 +132,29 @@ public class Main {
         String endDate = userInput.nextLine();
 
         // generate payslip
-        System.out.print(createPayslip(firstName, lastName, startDate, endDate, annualSalary, superRate));
+        System.out.print(printPayslip(firstName, lastName, startDate, endDate, annualSalary, superRate));
 
     }
 
     // CALCULATION METHODS
 
-        // method to generate gross income (annual salary / 12)
-    private static double grossIncomeMethod(int annualSalary){
+    // method to generate gross income (annual salary / 12)
+    private static double calculateGrossIncome(int annualSalary) {
         return annualSalary / 12.0f;
     }
 
-        // method to generate income tax (round up)
-    private static double incomeTaxMethod(int annualSalary){
+    // method to generate income tax (round up)
+    private static double calculateIncomeTax(int annualSalary) {
 
         double tax;
 
-        if(annualSalary <= 18200 ){
+        if (annualSalary <= 18200) {
             tax = 0;
-        } else if(annualSalary <= 37000){
+        } else if (annualSalary <= 37000) {
             tax = (annualSalary - 18000) * 0.19;
-        } else if(annualSalary <= 87000){
+        } else if (annualSalary <= 87000) {
             tax = 3572 + ((annualSalary - 37000) * 0.325);
-        } else if(annualSalary <= 180000){
+        } else if (annualSalary <= 180000) {
             tax = 19822 + ((annualSalary - 87000) * 0.37);
         } else {
             tax = 54232 + ((annualSalary - 180000) * 0.45);
@@ -162,45 +163,42 @@ public class Main {
         return tax / 12;
     }
 
-        // method to generate net income (gross income - income tax)
-    private static double netIncomeMethod(double grossIncome, double incomeTax){
+    // method to generate net income (gross income - income tax)
+    private static double calculateNetIncome(double grossIncome, double incomeTax) {
         return grossIncome - incomeTax;
     }
 
-        // method to generate super (gross income x super rate -> round down)
-    private static double superContributionMethod(double grossIncome, int superRate){
+    // method to generate super (gross income x super rate -> round down)
+    private static double calculateSuperContribution(double grossIncome, int superRate) {
         return grossIncome * (superRate / 100.0f);
     }
 
     // PAYSLIP GENERATOR
-    private static String createPayslip(String firstName, String lastName, String startDate, String endDate, int annualSalary, int superRate){
+    private static String printPayslip(String firstName, String lastName, String startDate, String endDate, int annualSalary, int superRate) {
 
         // print gross income
-        double grossIncome = Math.round(grossIncomeMethod(annualSalary));
+        double grossIncome = Math.round(calculateGrossIncome(annualSalary));
         int grossIncomeOutput = (int) grossIncome;
 
         // print income tax
-        double incomeTax = Math.round(incomeTaxMethod(annualSalary));
+        double incomeTax = Math.round(calculateIncomeTax(annualSalary));
         int incomeTaxOutput = (int) incomeTax;
 
         // print net income
-        double netIncome = netIncomeMethod(grossIncome, incomeTax);
+        double netIncome = calculateNetIncome(grossIncome, incomeTax);
         int netIncomeOutput = (int) netIncome;
 
         // print super contribution
-        double superContribution = Math.round(superContributionMethod(grossIncome, superRate));
+        double superContribution = Math.round(calculateSuperContribution(grossIncome, superRate));
         int superContributionOutput = (int) superContribution;
 
-        String generatePayslip = "\nYour payslip is being generated...\n"
-                                + "\nName: " + firstName + " " + lastName + "\n"
-                                + "Pay Period: " + startDate + " - " + endDate + "\n"
-                                + "Gross Income: " + grossIncomeOutput + "\n"
-                                + "Income Tax: " + incomeTaxOutput + "\n"
-                                + "Net Income: " + netIncomeOutput + "\n"
-                                + "Super: " + superContributionOutput + "\n"
-                                + "\nThank you for using MYOB!";
-
-        return generatePayslip;
+        return "\nYour payslip is being generated...\n"
+                + "\nName: " + firstName + " " + lastName + "\n"
+                + "Pay Period: " + startDate + " - " + endDate + "\n"
+                + "Gross Income: " + grossIncomeOutput + "\n"
+                + "Income Tax: " + incomeTaxOutput + "\n"
+                + "Net Income: " + netIncomeOutput + "\n"
+                + "Super: " + superContributionOutput + "\n"
+                + "\nThank you for using MYOB!";
     }
-
 }
