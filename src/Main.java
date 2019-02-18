@@ -106,8 +106,18 @@ public class Main {
 
         // ask user to enter super rate
         // check super rate is an integer and within 0 - 50
-        System.out.print("Please enter your super annuation rate (out of 100%): ");
-        int superRate = Integer.parseInt(userInput.nextLine());
+        int superRate = 0;
+
+        try {
+            System.out.print("Please enter your superannuation rate (out of 100): ");
+            superRate = Integer.parseInt(userInput.nextLine());
+            if (superRate > 100 || superRate < 0) {
+                throw new Exception("Super must be between 0 and 100, received: " + superRate);
+            }
+        } catch(Exception e) {
+            System.out.print(e.getMessage());
+            System.exit(4);
+        }
 
         // ask user to enter pay start date
         System.out.print("Please enter your payment start date(dd/mm/yyyy): ");
