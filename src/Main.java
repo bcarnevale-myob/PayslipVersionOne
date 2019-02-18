@@ -138,8 +138,8 @@ public class Main {
     // CALCULATION METHODS
 
         // method to generate gross income (annual salary / 12)
-    private static int grossIncomeMethod(int annualSalary){
-        return annualSalary / 12;
+    private static double grossIncomeMethod(int annualSalary){
+        return annualSalary / 12.0f;
     }
 
         // method to generate income tax (round up)
@@ -163,12 +163,12 @@ public class Main {
     }
 
         // method to generate net income (gross income - income tax)
-    private static double netIncomeMethod(int grossIncome, double incomeTax){
+    private static double netIncomeMethod(double grossIncome, double incomeTax){
         return grossIncome - incomeTax;
     }
 
         // method to generate super (gross income x super rate -> round down)
-    private static double superContributionMethod(int grossIncome, int superRate){
+    private static double superContributionMethod(double grossIncome, int superRate){
         return grossIncome * (superRate / 100.0f);
     }
 
@@ -176,24 +176,28 @@ public class Main {
     private static String createPayslip(String firstName, String lastName, String startDate, String endDate, int annualSalary, int superRate){
 
         // print gross income
-        int grossIncome = grossIncomeMethod(annualSalary);
+        double grossIncome = Math.round(grossIncomeMethod(annualSalary));
+        int grossIncomeOutput = (int) grossIncome;
 
         // print income tax
         double incomeTax = Math.round(incomeTaxMethod(annualSalary));
+        int incomeTaxOutput = (int) incomeTax;
 
         // print net income
         double netIncome = netIncomeMethod(grossIncome, incomeTax);
+        int netIncomeOutput = (int) netIncome;
 
         // print super contribution
         double superContribution = Math.round(superContributionMethod(grossIncome, superRate));
+        int superContributionOutput = (int) superContribution;
 
         String generatePayslip = "\nYour payslip is being generated...\n"
                                 + "\nName: " + firstName + " " + lastName + "\n"
                                 + "Pay Period: " + startDate + " - " + endDate + "\n"
-                                + "Gross Income: " + grossIncome + "\n"
-                                + "Income Tax: " + incomeTax + "\n"
-                                + "Net Income: " + netIncome + "\n"
-                                + "Super: " + superContribution + "\n"
+                                + "Gross Income: " + grossIncomeOutput + "\n"
+                                + "Income Tax: " + incomeTaxOutput + "\n"
+                                + "Net Income: " + netIncomeOutput + "\n"
+                                + "Super: " + superContributionOutput + "\n"
                                 + "\nThank you for using MYOB!";
 
         return generatePayslip;
