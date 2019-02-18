@@ -16,14 +16,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="149" column="141" selection-start-line="149" selection-start-column="141" selection-end-line="149" selection-end-column="141" />
+            <state relative-caret-position="235">
+              <caret line="171" column="14" selection-start-line="171" selection-start-column="14" selection-end-line="171" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4430#4431#0" expanded="true" />
-                <element signature="e#4464#4465#0" expanded="true" />
-                <element signature="e#5284#5285#0" expanded="true" />
-                <element signature="e#5330#5331#0" expanded="true" />
+                <element signature="e#4846#4847#0" expanded="true" />
+                <element signature="e#4886#4887#0" expanded="true" />
+                <element signature="e#5640#5641#0" expanded="true" />
+                <element signature="e#5686#5687#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -60,7 +60,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550451076357" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550455749853" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -103,12 +103,12 @@
       <option name="presentableId" value="Default" />
       <updated>1550445541196</updated>
       <workItem from="1550445543883" duration="28000" />
-      <workItem from="1550445655606" duration="5114000" />
+      <workItem from="1550445655606" duration="7048000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5142000" />
+    <option name="totallyTimeSpent" value="7076000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="801" extended-state="6" />
@@ -151,14 +151,14 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="149" column="141" selection-start-line="149" selection-start-column="141" selection-end-line="149" selection-end-column="141" />
+        <state relative-caret-position="235">
+          <caret line="171" column="14" selection-start-line="171" selection-start-column="14" selection-end-line="171" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4430#4431#0" expanded="true" />
-            <element signature="e#4464#4465#0" expanded="true" />
-            <element signature="e#5284#5285#0" expanded="true" />
-            <element signature="e#5330#5331#0" expanded="true" />
+            <element signature="e#4846#4847#0" expanded="true" />
+            <element signature="e#4886#4887#0" expanded="true" />
+            <element signature="e#5640#5641#0" expanded="true" />
+            <element signature="e#5686#5687#0" expanded="true" />
           </folding>
         </state>
       </provider>

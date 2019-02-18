@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.lang.String;
+import java.lang.Math;
 
 /* # Basic Payslip Challenge
 
@@ -78,7 +79,7 @@ public class Main {
         Scanner userInput = new Scanner(System.in);
 
         // ask user to enter first name
-        System.out.print("Please enter your first name: ");
+        System.out.print("\nPlease enter your first name: ");
         String firstName = userInput.nextLine();
 
         // ask user to enter last name
@@ -87,9 +88,21 @@ public class Main {
 
         // ask user to enter annual salary
         // check annual salary is a positive integer
-        System.out.print("Please enter your annual salary: ");
         int annualSalary = 0;
-        annualSalary = Integer.parseInt(userInput.nextLine());
+
+        try {
+            System.out.print("Please enter your annual salary: ");
+            annualSalary = Integer.parseInt(userInput.nextLine());
+            if (annualSalary <= 0) {
+                throw new Exception("Annual salary must be positive, received: " + annualSalary);
+            }
+        } catch(NumberFormatException e) {
+            System.out.print("Annual Salary must be an integer, received: " + annualSalary);
+            System.exit(2);
+        } catch(Exception e) {
+            System.out.print(e.getMessage());
+            System.exit(3);
+        }
 
         // ask user to enter super rate
         // check super rate is an integer and within 0 - 50
@@ -153,13 +166,13 @@ public class Main {
         int grossIncome = grossIncomeMethod(annualSalary);
 
         // print income tax
-        double incomeTax = incomeTaxMethod(annualSalary);
+        double incomeTax = Math.round(incomeTaxMethod(annualSalary));
 
         // print net income
         double netIncome = netIncomeMethod(grossIncome, incomeTax);
 
         // print super contribution
-        double superContribution = superContributionMethod(grossIncome, superRate);
+        double superContribution = Math.round(superContributionMethod(grossIncome, superRate));
 
         String generatePayslip = "\nYour payslip is being generated...\n"
                                 + "\nName: " + firstName + " " + lastName + "\n"
